@@ -1,28 +1,29 @@
 #include <concepts>
-#include <cstdint>
+#include <print>
 #include <cstdio>
+#include <span>
+#include <iostream>
 
-template <std::floating_point T> void print_array(T const * A, int n)
+typedef float f32;
+typedef double f64;
+
+template <std::floating_point T> void print_array(std::span<T> A)
 {
-	if (!n) {
-		putchar('\n');
-		return;
-	}
-
-	printf("%lf ", *A);
-	print_array(A + 1, n - 1);
+	for (auto n : A)
+		std::print("{:7.2f} ", n);
+	std::cout << std::endl;
 }
 
 int main()
 {
-	float a[4] = {3.5f, 1.1f, 10.0f, -10.0f};
-	float b[4] = {0.5f, -5.1f, -0.1f, 12.3f};
-	float c[4] = {0.0f, 0.0f, 0.0f, 0.0f};
+	f32 a[4] = {3.5f, 1.1f, 10.0f, -10.0f};
+	f32 b[4] = {0.5f, -5.1f, -0.1f, 12.3f};
+	f32 c[4] = {0.0f, 0.0f, 0.0f, 0.0f};
 
 	printf("a: ");
-	print_array(a, sizeof(a) / sizeof(*a));
+	print_array(std::span{a,4});
 	printf("b: ");
-	print_array(b, sizeof(b) / sizeof(*b));
+	print_array(std::span{b,4});
 
 	_asm {
 		movups xmm0, a
@@ -32,8 +33,8 @@ int main()
 	}
 
 	printf("c: ");
-	print_array(c, sizeof(c) / sizeof(*c));
-
+	print_array(std::span{c,4});
+	
 	getchar();
 	return 0;
 }
