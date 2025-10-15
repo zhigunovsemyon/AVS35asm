@@ -10,6 +10,7 @@ typedef double f64;
 typedef int8_t i8;
 typedef uint8_t u8;
 typedef int16_t i16;
+typedef uint16_t u16;
 
 template <std::floating_point T> void print_array(std::span<T> A)
 {
@@ -47,7 +48,8 @@ static void sse_f32_mult()
 	print_array(std::span{c, 4});
 }
 
-int main(){
+int main()
+{
 	sse_f32_mult();
 	getchar();
 	return 0;
