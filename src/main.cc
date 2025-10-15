@@ -8,6 +8,7 @@
 typedef float f32;
 typedef double f64;
 typedef int8_t i8;
+typedef uint8_t u8;
 typedef int16_t i16;
 
 template <std::floating_point T> void print_array(std::span<T> A)
@@ -24,7 +25,7 @@ template <std::integral T> void print_array(std::span<T> A)
 	std::cout << std::endl;
 }
 
-void sse_f32_mult()
+static void sse_f32_mult()
 {
 	f32 a[4] = {3.5f, 1.1f, 10.0f, -10.0f};
 	f32 b[4] = {0.5f, -5.1f, -0.1f, 12.3f};
