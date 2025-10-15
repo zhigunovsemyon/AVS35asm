@@ -3,9 +3,12 @@
 #include <cstdio>
 #include <span>
 #include <iostream>
+#include <cstdint>
 
 typedef float f32;
 typedef double f64;
+typedef int8_t i8;
+typedef int16_t i16;
 
 template <std::floating_point T> void print_array(std::span<T> A)
 {
