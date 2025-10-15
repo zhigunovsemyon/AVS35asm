@@ -14,6 +14,13 @@ template <std::floating_point T> void print_array(std::span<T> A)
 	std::cout << std::endl;
 }
 
+template <std::integral T> void print_array(std::span<T> A)
+{
+	for (auto n : A)
+		std::print("{:4} ", n);
+	std::cout << std::endl;
+}
+
 void sse_f32_mult()
 {
 	f32 a[4] = {3.5f, 1.1f, 10.0f, -10.0f};
