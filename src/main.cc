@@ -111,7 +111,7 @@ static void sse_f64_div()
 	using type = f64;
 	puts("Задание 5. f64 C = A / B");
 	type a[2] = {3.5f, 1.0f};
-	type b[2] = {0.5f, -5.1f};
+	type b[2] = {0.5f, std::numeric_limits<f64>::quiet_NaN()};
 	type c[2] = {0.0f, 0.0f};
 
 	printf("a: ");
