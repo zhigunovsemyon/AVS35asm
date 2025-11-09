@@ -85,10 +85,11 @@ static void sse_i8_sum()
 
 static void sse_f32_mult()
 {
+	using type = f32;
 	puts("Задание 4. f32 C = A * B");
-	f32 a[4] = {3.5f, 1.1f, 10.0f, -10.0f};
-	f32 b[4] = {0.5f, -5.1f, -0.1f, 12.3f};
-	f32 c[4] = {0.0f, 0.0f, 0.0f, 0.0f};
+	type a[4] = {3.5f, 1.1f, 10.0f, -10.0f};
+	type b[4] = {0.5f, -5.1f, -0.1f, 12.3f};
+	type c[4] = {0.0f, 0.0f, 0.0f, 0.0f};
 
 	printf("a: ");
 	print_array(std::span{a, 4});
