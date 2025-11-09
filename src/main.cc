@@ -1,8 +1,6 @@
-#include <concepts>
+#include "helper.h"
 #include <cstdint>
 #include <cstdio>
-#include <print>
-#include <span>
 
 typedef float f32;
 typedef double f64;
@@ -12,33 +10,6 @@ typedef int16_t i16;
 typedef uint16_t u16;
 typedef int32_t i32;
 typedef uint32_t u32;
-
-template <std::integral T>
-consteval uint16_t int_count_space() 
-{
-	uint16_t ret = 0;
-	auto val = std::numeric_limits<T>::max();
-
-	while (val) {
-		val /= 10;
-		ret++;
-	}
-	return ret + ((std::numeric_limits<T>::min() < 0) ? 1 : 0);
-}
-
-template <std::floating_point T> void print_array(std::span<T> A)
-{
-	for (auto n : A)
-		std::print("{:7.2f} ", n);
-	std::println();
-}
-
-template <std::integral T> void print_array(std::span<T> A)
-{
-	for (auto n : A)
-		std::print("{:{}} ", n, int_count_space<T>() + 1);
-	std::println();
-}
 
 static void sse_i32_sum()
 {
@@ -135,6 +106,30 @@ static void sse_f32_mult()
 	print_array(std::span{c, 4});
 }
 
+static void sse_f64_div()
+{
+	using type = f64;
+	puts("Задание 5. f64 C = A / B");
+	type a[2] = {3.5f, 1.0f};
+	type b[2] = {0.5f, -5.1f};
+	type c[2] = {0.0f, 0.0f};
+
+	printf("a: ");
+	print_array(std::span{a, 2});
+	printf("b: ");
+	print_array(std::span{b, 2});
+
+	_asm {
+		movupd xmm0, a
+		movupd xmm1, b
+		divpd xmm0, xmm1
+		movupd c, xmm0
+	}
+
+	printf("c: ");
+	print_array(std::span{c, 2});
+}
+
 int main()
 {
 	sse_i32_sum();
@@ -147,6 +142,9 @@ int main()
 	std::println();
 
 	sse_f32_mult();
+	std::println();
+
+	sse_f64_div();
 
 	puts("Нажмите любую кнопку для завершения");
 	(void)getchar();
