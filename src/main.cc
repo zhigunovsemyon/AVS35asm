@@ -87,7 +87,7 @@ static void sse_f32_mult()
 {
 	using type = f32;
 	puts("Задание 4. f32 C = A * B");
-	type a[4] = {3.5f, 1.1f, 10.0f, -10.0f};
+	type a[4] = {3.5f, 1.1f, -std::numeric_limits<type>::infinity(), -10.0f};
 	type b[4] = {0.5f, -5.1f, -0.1f, 12.3f};
 	type c[4] = {0.0f, 0.0f, 0.0f, 0.0f};
 
@@ -112,7 +112,7 @@ static void sse_f64_div()
 	using type = f64;
 	puts("Задание 5. f64 C = A / B");
 	type a[2] = {3.5f, 1.0f};
-	type b[2] = {0.5f, std::numeric_limits<f64>::quiet_NaN()};
+	type b[2] = {0.5f, std::numeric_limits<type>::quiet_NaN()};
 	type c[2] = {0.0f, 0.0f};
 
 	printf("a: ");
