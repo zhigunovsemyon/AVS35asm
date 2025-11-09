@@ -29,10 +29,11 @@ template <std::integral T> void print_array(std::span<T> A)
 
 static void sse_i32_sum()
 {
+	using type = i32;
 	puts("Задание 1. i32 C = A + B");
-	i32 a[4] = {8, -1, std::numeric_limits<i32>::max(), 11};
-	i32 b[4] = {0, 3, 4, 2};
-	i32 c[4] = {};
+	type a[4] = {8, -1, std::numeric_limits<type>::max(), 11};
+	type b[4] = {0, 3, 4, 2};
+	type c[4] = {};
 
 	printf("a: ");
 	print_array(std::span{a, 4});
@@ -48,6 +49,30 @@ static void sse_i32_sum()
 
 	printf("c: ");
 	print_array(std::span{c, 4});
+}
+
+static void sse_u16_sub()
+{
+	using type = u16;
+	puts("Задание 2. u16 C = A - B");
+	type a[8] = {0, 1, std::numeric_limits<type>::max(), 11, 256, 4, 99, 0};
+	type b[8] = {1, 38, 4, 211, 0, 2, 19, std::numeric_limits<type>::max()};
+	type c[8] = {};
+
+	printf("a: ");
+	print_array(std::span{a, 8});
+	printf("b: ");
+	print_array(std::span{b, 8});
+
+	_asm {
+		movdqu xmm0, a
+		movdqu xmm1, b
+		psubw xmm0, xmm1
+		movdqu c, xmm0
+	}
+
+	printf("c: ");
+	print_array(std::span{c, 8});
 }
 
 static void sse_f32_mult()
@@ -76,6 +101,8 @@ static void sse_f32_mult()
 int main()
 {
 	sse_i32_sum();
+	std::println();
+	sse_u16_sub();
 	std::println();
 	sse_f32_mult();
 
