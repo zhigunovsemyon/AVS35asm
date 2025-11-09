@@ -28,6 +28,7 @@ template <std::integral T> void print_array(std::span<T> A)
 
 static void sse_f32_mult()
 {
+	puts("Задание 1. C = A * B");
 	f32 a[4] = {3.5f, 1.1f, 10.0f, -10.0f};
 	f32 b[4] = {0.5f, -5.1f, -0.1f, 12.3f};
 	f32 c[4] = {0.0f, 0.0f, 0.0f, 0.0f};
@@ -51,6 +52,8 @@ static void sse_f32_mult()
 int main()
 {
 	sse_f32_mult();
-	getchar();
+
+	puts("Нажмите любую кнопку для завершения");
+	(void)getchar();
 	return 0;
 }
